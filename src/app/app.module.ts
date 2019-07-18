@@ -21,6 +21,7 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { AreaEditComponent } from './area-edit/area-edit.component';
 import { ForecastComponent } from './forecast/forecast.component';
+import { UnixTimeDatePipe } from './pipes/unix-time-date.pipe';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { ForecastComponent } from './forecast/forecast.component';
     AppComponent,
     HomeComponent,
     AreaEditComponent,
-    ForecastComponent
+    ForecastComponent,
+    UnixTimeDatePipe
   ],
   imports: [
     BrowserModule,
