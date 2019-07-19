@@ -1,10 +1,8 @@
 import { OpenWeatherMapService } from './services/open-weather-map.service';
-
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-/**import { HttpModule } from '@angular/http'; */
-
+import { HttpModule } from '@angular/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
   MatToolbarModule,
@@ -23,6 +21,16 @@ import { AreaEditComponent } from './area-edit/area-edit.component';
 import { ForecastComponent } from './forecast/forecast.component';
 import { UnixTimeDatePipe } from './pipes/unix-time-date.pipe';
 
+import { 
+  HTTP_INTERCEPTORS,
+  HttpClientModule 
+} from '@angular/common/http';
+import { LoadingInterceptor } from './loading-interceptor';
+import { LoadingService } from './services/loading.service';
+
+import { AreaService } from './services/area.service';
+
+/**import { ChartsModule } from 'ng2-charts/ng2-charts'; */
 
 @NgModule({
   declarations: [
@@ -35,7 +43,7 @@ import { UnixTimeDatePipe } from './pipes/unix-time-date.pipe';
   imports: [
     BrowserModule,
     FormsModule,
-    /**HttpModule,*/
+    HttpModule,
     AppRoutingModule,
 
     BrowserAnimationsModule,
@@ -45,10 +53,18 @@ import { UnixTimeDatePipe } from './pipes/unix-time-date.pipe';
     MatSidenavModule,
     MatListModule,
     MatCardModule,
-    MatInputModule
+    MatInputModule,
+/**    ChartsModule */
   ],
   providers: [
-    OpenWeatherMapService
+    OpenWeatherMapService,
+    LoadingService,
+    AreaService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: LoadingInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })
